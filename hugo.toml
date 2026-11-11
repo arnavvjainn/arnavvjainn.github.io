@@ -9,6 +9,8 @@ summaryLength = 40
   tagline = "A blog by Arnav Jain"
   description = "Thoughts on software, tools, and whatever else is rattling around."
   github = "arnavvjainn"
+  repo = "arnavvjainn/arnavvjainn.github.io"
+  repoBranch = "main"
 
 [permalinks.page]
   blog = "/:slug/"
