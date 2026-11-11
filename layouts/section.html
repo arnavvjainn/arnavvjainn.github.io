@@ -1,9 +1,38 @@
 {{ define "main" }}
-{{ $pinned := where .Pages "Params.pinned" true }}
-{{ $rest := .Pages | complement $pinned }}
-<div class="post-list">
-  {{ range $pinned.ByDate.Reverse }}{{ partial "post-card.html" . }}{{ end }}
-  {{ range $rest.ByDate.Reverse }}{{ partial "post-card.html" . }}{{ end }}
-</div>
-{{ partial "tag-cloud.html" . }}
+{{ $learning := site.GetPage "/blog/learning" }}
+{{ if eq . $learning }}
+  {{ partial "blog-tabs.html" . }}
+  <div class="learning-grid">
+    {{ range .Sections.ByWeight }}
+    <a class="card learning-card" href="{{ .RelPermalink }}">
+      <h2>{{ .Title }}</h2>
+      {{ with .Description }}<p class="excerpt">{{ . }}</p>{{ end }}
+      {{ $n := len .RegularPages }}
+      <span class="card-meta">{{ if $n }}{{ $n }} {{ cond (eq $n 1) "note" "notes" }}{{ else }}Notes coming soon{{ end }}</span>
+    </a>
+    {{ end }}
+  </div>
+{{ else if .IsDescendant $learning }}
+  {{ partial "blog-tabs.html" . }}
+  <article class="post">
+    <header class="post-header"><h1>{{ .Title }}</h1></header>
+    <div class="prose">{{ .Content }}</div>
+    {{ with .RegularPages.ByWeight }}
+    <div class="post-list">
+      {{ range . }}{{ partial "post-card.html" . }}{{ end }}
+    </div>
+    {{ else }}
+    <p class="empty">No lecture notes yet.</p>
+    {{ end }}
+  </article>
+{{ else }}
+  {{ if eq .Section "blog" }}{{ partial "blog-tabs.html" . }}{{ end }}
+  {{ $pinned := where .RegularPages "Params.pinned" true }}
+  {{ $rest := .RegularPages | complement $pinned }}
+  <div class="post-list">
+    {{ range $pinned.ByDate.Reverse }}{{ partial "post-card.html" . }}{{ end }}
+    {{ range $rest.ByDate.Reverse }}{{ partial "post-card.html" . }}{{ end }}
+  </div>
+  {{ partial "tag-cloud.html" . }}
+{{ end }}
 {{ end }}

@@ -1,0 +1,7 @@
+{{ $blog := site.GetPage "/blog" }}
+{{ $learning := site.GetPage "/blog/learning" }}
+{{ $onLearning := or (eq . $learning) (.IsDescendant $learning) }}
+<nav class="sub-tabs" aria-label="Blog sections">
+  <a href="{{ $blog.RelPermalink }}"{{ if not $onLearning }} class="active" aria-current="page"{{ end }}>Posts</a>
+  <a href="{{ $learning.RelPermalink }}"{{ if $onLearning }} class="active" aria-current="page"{{ end }}>Learning</a>
+</nav>
