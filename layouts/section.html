@@ -15,7 +15,10 @@
 {{ else if .IsDescendant $learning }}
   {{ partial "blog-tabs.html" . }}
   <article class="post">
-    <header class="post-header"><h1>{{ .Title }}</h1></header>
+    <header class="post-header course-header">
+      <h1>{{ .Title }}</h1>
+      {{ partial "new-note-button.html" . }}
+    </header>
     <div class="prose">{{ .Content }}</div>
     {{ with .RegularPages.ByWeight }}
     <div class="post-list">

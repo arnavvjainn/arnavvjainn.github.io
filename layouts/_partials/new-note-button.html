@@ -1,0 +1,9 @@
+{{/* Opens GitHub's "new file" editor prefilled with the next lecture note for this course section. */}}
+{{ $n := add (len .RegularPages) 1 }}
+{{ $num := printf "%02d" $n }}
+{{ $course := path.Base .File.Dir }}
+{{ $file := printf "%slecture-%s.md" .File.Dir $num }}
+{{ $front := printf "---\ntitle: \"Lecture %d: \"\ndate: %s\nweight: %d\nslug: \"%s-lecture-%s\"\ndescription: \"\"\n---\n\n## Key ideas\n\n- \n" $n (now.Format "2006-01-02") $n $course $num }}
+{{ $query := querify "filename" (printf "content/%s" $file) "value" $front }}
+{{ $url := printf "https://github.com/%s/new/%s?%s" site.Params.repo site.Params.repoBranch $query }}
+<a class="new-note" href="{{ $url | safeURL }}" target="_blank" rel="noopener">+ New note</a>

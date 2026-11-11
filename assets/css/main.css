@@ -110,6 +110,12 @@ nav a.active { box-shadow: inset 0 -2px 0 var(--accent); }
 .learning-card h2 { margin-top: 0; }
 .learning-card .card-meta { margin-top: auto; }
 .empty { color: var(--muted); font-style: italic; }
+.course-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .75rem 1rem; }
+.new-note {
+  flex: none; border: 1px solid var(--border); border-radius: 8px;
+  padding: .3rem .8rem; font-size: .9rem; font-weight: 600;
+}
+.new-note:hover { border-color: var(--accent); background: var(--accent-soft); text-decoration: none; }
 
 /* ---------- Tag cloud ---------- */
 .tag-cloud { margin: 3rem 0 1rem; }
